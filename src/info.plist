@@ -8,6 +8,17 @@
 	<string>Tools</string>
 	<key>connections</key>
 	<dict>
+		<key>49595362-AF91-4CBF-8FEC-2A8D7ECD63CC</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>E037422F-BB78-4C52-9EC9-D23FCF6CA31A</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
 		<key>E037422F-BB78-4C52-9EC9-D23FCF6CA31A</key>
 		<array>
 			<dict>
@@ -36,9 +47,17 @@
 				<key>argumenttype</key>
 				<integer>1</integer>
 				<key>escaping</key>
-				<integer>127</integer>
+				<integer>102</integer>
 				<key>keyword</key>
 				<string>fab</string>
+				<key>queuedelaycustom</key>
+				<integer>1</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
 				<key>runningsubtext</key>
 				<string>Listing Fabric tasks...</string>
 				<key>script</key>
@@ -74,11 +93,29 @@
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>triggerid</key>
+				<string>open</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.trigger.external</string>
+			<key>uid</key>
+			<string>49595362-AF91-4CBF-8FEC-2A8D7ECD63CC</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
 	</array>
 	<key>readme</key>
 	<string></string>
 	<key>uidata</key>
 	<dict>
+		<key>49595362-AF91-4CBF-8FEC-2A8D7ECD63CC</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
 		<key>D090CC49-62D9-46F3-9EB9-F1C42D6E281F</key>
 		<dict>
 			<key>ypos</key>
@@ -91,6 +128,6 @@
 		</dict>
 	</dict>
 	<key>webaddress</key>
-	<string>https://github.com/fniephaus/alfred2/</string>
+	<string>https://github.com/fniephaus/alfred-fabric/</string>
 </dict>
 </plist>
