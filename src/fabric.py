@@ -1,6 +1,6 @@
 import sys
-import os
-import commands
+from os import path, system
+import subprocess
 from workflow import Workflow
 
 FAB_EXECUTABLE = '/usr/local/bin/fab'
@@ -23,10 +23,12 @@ def main(wf):
     query_split = query.split(' ')
     if query_split[0] == 'register':
         if len(query_split) == 2 and query_split[1].endswith('.py'):
-            if query not in fabfiles:
-                fabfiles.append(query_split[1])
+            filename = query_split[1]
+            if (path.isfile(path.expanduser(filename)) and
+                    filename not in fabfiles):
+                fabfiles.append(filename)
                 wf.settings['fabfiles'] = fabfiles
-            return reopen_workflow()
+                return reopen_workflow()
 
         wf.add_item(
             'Register new fabfile',
@@ -43,10 +45,16 @@ def main(wf):
     task_list = {}
     for fabfile in fabfiles:
         # list all tasks in the selected fabfile
-        tasks = commands.getstatusoutput(
-            '%s --fabfile=%s --shortlist' % (FAB_EXECUTABLE, fabfile)
-        )[1].split('\n')
+        result, err = subprocess.Popen(
+            [FAB_EXECUTABLE, '-f', fabfile, '--shortlist'],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE
+        ).communicate()
+        if err != '':
+            wf.logger.debug('Error opening fabfile: %s' % fabfile)
+            continue
 
+        tasks = [x for x in result.split('\n') if len(x) > 0]
         if fabfile in task_list:
             task_list[fabfile] += tasks
         else:
@@ -74,9 +82,11 @@ def main(wf):
 
 def reopen_workflow(query=None):
     query = query or ''
-    os.system(
-        """ osascript -e 'tell application "Alfred 2" to run trigger "open" in workflow "com.fniephaus.fabric" with argument "%s"' """ % (
-            query)
+    system(
+        """
+        osascript -e 'tell application "Alfred 2" to run trigger "open" \
+        in workflow "com.fniephaus.fabric" with argument "%s"'
+        """ % query
     )
 
 if __name__ == '__main__':
